@@ -1,14 +1,19 @@
 {
   "name": "Little Notes",
   "short_name": "Notes",
-  "start_url": "index.html",
+  "start_url": "/little_notes_web/",
   "display": "standalone",
-  "background_color": "#222",
-  "theme_color": "#222",
+  "background_color": "#222222",
+  "theme_color": "#222222",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]

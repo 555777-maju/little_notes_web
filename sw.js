@@ -1,21 +1,22 @@
+const CACHE_NAME = "little-notes-v1";
+const ASSETS = [
+  "/little_notes_web/",
+  "/little_notes_web/index.html",
+  "/little_notes_web/app.js",
+  "/little_notes_web/manifest.json"
+];
+
 self.addEventListener("install", e => {
-  self.skipWaiting();
   e.waitUntil(
-    caches.open("notes-v2").then(c =>
-      c.addAll([
-        "./",
-        "index.html",
-        "app.js",
-        "manifest.json"
-      ])
-    )
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
   );
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.map(k => k !== "notes-v2" && caches.delete(k)))
+      Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))
     )
   );
   self.clients.claim();
@@ -23,6 +24,6 @@ self.addEventListener("activate", e => {
 
 self.addEventListener("fetch", e => {
   e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
+    caches.match(e.request).then(res => res || fetch(e.request))
   );
 });

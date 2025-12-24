@@ -5,50 +5,134 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Little Notes</title>
 
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#222222">
+
 <style>
-body { margin:0; font-family:system-ui; background:#222; }
-header { background:#333; color:#fff; text-align:center; padding:14px; font-size:22px; }
-#search { width:calc(100% - 16px); margin:8px; font-size:16px; padding:6px; }
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #222;
+}
 
-#tabs { display:flex; }
-#tabs button { flex:1; padding:8px; font-size:16px; }
+header {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  font-size: 22px;
+}
 
-#tools { display:flex; gap:8px; padding:8px; }
-#tools button { flex:1; }
+#search {
+  width: calc(100% - 16px);
+  margin: 8px;
+  font-size: 16px;
+  padding: 6px;
+}
 
-.note { padding:12px; border-radius:8px; margin:8px; }
-.note b { font-size:18px; display:block; }
-.note small { font-size:12px; opacity:.7; }
+#tabs {
+  display: flex;
+  gap: 4px;
+  margin: 0 8px;
+}
+
+#tabs button {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+}
+
+#tools {
+  display: flex;
+  gap: 4px;
+  margin: 8px;
+}
+
+#tools button {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.note {
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px;
+}
+
+.note b {
+  display: block;
+  font-size: 18px;
+}
+
+.note small {
+  font-size: 12px;
+  opacity: 0.7;
+}
 
 /* COLORS */
-.yellow { background:#fff4a3; }
-.pink { background:#ffd6e7; }
-.blue { background:#d6ebff; }
-.green { background:#d6ffe2; }
-.grey { background:#eee; }
+.yellow { background: #fff4a3; }
+.pink   { background: #ffd6e7; }
+.blue   { background: #d6ebff; }
+.green  { background: #d6ffe2; }
+.grey   { background: #eee; }
 
 #add {
-  position:fixed; bottom:16px; right:16px;
-  width:60px; height:60px; font-size:32px; z-index:99999;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  z-index: 99999;
 }
 
 #editor {
-  position:fixed; inset:0; background:#000a;
-  display:none; align-items:center; justify-content:center;
-  z-index:100000;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
 }
 
 #editorBox {
-  background:#333; padding:10px; width:95%; max-width:480px;
+  background: #333;
+  padding: 10px;
+  width: 95%;
+  max-width: 480px;
 }
 
-textarea { width:100%; height:140px; font-size:18px; }
+textarea {
+  width: 100%;
+  height: 140px;
+  font-size: 18px;
+}
 
-.colors { display:flex; gap:8px; margin-top:8px; }
-.colors button { width:32px; height:32px; border:2px solid #000; }
+.colors {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
 
-.actions { display:flex; gap:8px; margin-top:8px; }
-.actions button { flex:1; font-size:16px; }
+.colors button {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #000;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.actions button {
+  flex: 1;
+  font-size: 16px;
+}
 </style>
 </head>
 
@@ -69,6 +153,7 @@ textarea { width:100%; height:140px; font-size:18px; }
 </div>
 
 <div id="list"></div>
+
 <button id="add">+</button>
 
 <div id="editor">
@@ -95,5 +180,13 @@ textarea { width:100%; height:140px; font-size:18px; }
 <input type="file" id="fileInput" style="display:none">
 
 <script src="app.js"></script>
+
+<!-- SERVICE WORKER -->
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+
 </body>
 </html>
